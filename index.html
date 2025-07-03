@@ -1,1 +1,63 @@
-测试一下
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>教室时钟</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        #clock {
+            color: white;
+            font-size: 8vw;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+        .date {
+            font-size: 2.5vw;
+            margin-top: 1vh;
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+    <div id="clock">
+        <div id="time"></div>
+        <div class="date" id="date"></div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            
+            // 强制24小时制格式化
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            // 日期格式化
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+            const weekday = weekdays[now.getDay()];
+            
+            document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('date').textContent = `${year}年${month}月${day}日 星期${weekday}`;
+        }
+        
+        // 立即更新并每秒刷新
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
